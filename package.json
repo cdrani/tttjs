@@ -1,0 +1,17 @@
+{
+  "name": "tttjs",
+  "version": "1.0.0",
+  "description": "tic tac toe",
+  "scripts": {
+    "dev": "webpack-dev-server -d",
+    "build": "webpack -p"
+  },
+  "devDependencies": {
+    "webpack": "4.26.0",
+    "webpack-cli": "3.1.2",
+    "webpack-dev-server": "3.1.10"
+  },
+  "author": "cdrainxv",
+  "license": "MIT",
+  "private": false
+}
