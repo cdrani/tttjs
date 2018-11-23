@@ -13,5 +13,9 @@
   },
   "author": "cdrainxv",
   "license": "MIT",
-  "private": false
+  "private": false,
+  "dependencies": {
+    "arr-chunk": "0.1.1",
+    "flip-array": "0.1.0"
+  }
 }
