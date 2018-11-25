@@ -4,7 +4,13 @@ import Game from './game'
 const controller = (() => {
   const content = document.getElementById('content')
   const gameBoard = document.getElementById('game-board')
-  gameBoard.classList.add('section', 'columns', 'is-multiline', 'is-full')
+  gameBoard.classList.add(
+    'section',
+    'columns',
+    'is-multiline',
+    'is-full',
+    'is-mobile'
+  )
   const game = new Game()
 
   const createElement = (el, classes) => {
@@ -38,7 +44,7 @@ const controller = (() => {
     threeInARow.forEach(row => {
       const parentColumn = createElement(
         'div',
-        'columns column is-full is-offset-3 is-0'
+        'columns column is-full is-offset-4 is-0 is-mobile my-1'
       )
       const parentElGroup = appendChildren(parentColumn, [...row])
       parentElArray.push(parentElGroup)
@@ -51,12 +57,13 @@ const controller = (() => {
     game.board.state.forEach((_cell, index) => {
       const boardCell = createElement(
         'div',
-        'has-background-link column is-half'
+        'has-background-link column is-half has-text-centered is-size-1'
       )
-      boardCell.style.width = '200px'
-      boardCell.style.height = '200px'
+      boardCell.style.width = '100px'
+      boardCell.style.height = '100px'
       boardCell.style.marginRight = '25px'
       boardCell.style.borderRadius = '50%'
+      boardCell.style.lineHeight = '65px'
       boardCell.addEventListener('click', e => {
         markBoard(e, index)
       })
