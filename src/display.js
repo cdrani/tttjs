@@ -9,7 +9,8 @@ const controller = (() => {
     'columns',
     'is-multiline',
     'is-full',
-    'is-mobile'
+    'is-mobile',
+    'has-text-centered'
   )
   const game = new Game()
 
@@ -49,7 +50,7 @@ const controller = (() => {
       } else {
         game.switchTurns()
       }
-    } else console.log('game over')
+    }
   }
 
   const createGameOverMessage = () => {
@@ -59,11 +60,35 @@ const controller = (() => {
       messageEl.textContent = `${game.currentPlayer.name} won!`
     else messageEl.textContent = `It's a stalemate!`
     messageContainer.appendChild(messageEl)
-    return appendChildren(content, [messageContainer])
+    return appendChildren(gameBoard, [messageContainer])
+  }
+
+  const createResetGameButton = () => {
+    const btnContainer = createElement('div', 'columns container has-text-centered')
+    const btn = createElement(
+      'button',
+      'column is-3 is-offset-6 button is-link has-text-centered is-large' 
+    )
+    btn.textContent = 'Play Again'
+    btn.addEventListener('click', () => {
+      removeChildren(gameBoard)
+      game.board.reset()
+      createBoard()
+    })
+
+    btnContainer.appendChild(btn)
+    content.appendChild(btnContainer)
+  }
+
+  const removeChildren = parentEl => {
+    while (parentEl.firstChild) {
+      parentEl.removeChild(parentEl.firstChild)
+    }
   }
 
   const createBoard = () => {
     const boardCells = []
+    createResetGameButton()
     game.board.state.forEach((_cell, index) => {
       const boardCell = createElement(
         'div',

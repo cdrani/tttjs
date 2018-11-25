@@ -10,6 +10,10 @@ export default class Board {
     return this._board
   }
 
+  reset() {
+    this._board = Array(9).fill('')
+  }
+
   cellAvailable(cell) {
     return this._board[cell] === ''
   }
