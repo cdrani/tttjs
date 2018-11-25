@@ -1,1 +1,2 @@
-import Game from './game'
+import controller from './display'
+controller.createBoard()

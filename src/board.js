@@ -3,18 +3,26 @@ import transpose from 'flip-array'
 
 export default class Board {
   constructor(board = null) {
-    this._board = board || Array.from(''.repeat(9))
+    this._board = board || Array(9).fill('')
   }
 
-  availableCell(cell) {
-    return this._board[cell - 1] === ''
+  get state() {
+    return this._board
+  }
+
+  cellAvailable(cell) {
+    return this._board[cell] === ''
   }
 
   addMarker(cell, marker) {
-    if (this.availableCell(cell)) {
-      this._board[cell - 1] = marker
+    if (this.cellAvailable(cell)) {
+      this._board[cell] = marker
       return true
     } else return false
+  }
+
+  availableCells() {
+    return this._board.filter(cell => cell === '')
   }
 
   full() {

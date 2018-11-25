@@ -9,21 +9,22 @@ export default class Game {
     this._currentPlayer = this.randomPlayerStart([this._playerX, this._playerO])
   }
 
+  get board() {
+    return this._board
+  }
+
+  get currentPlayer() {
+    return this._currentPlayer
+  }
+
   randomPlayerStart(players) {
     const random = () => Math.floor(Math.random() * 2)
     return players[random()]
   }
 
-  start() {
-    while (!this.gameOver()) {
-      let playerInput = parseInt(alert('Cell to place marker: '))
-      this._board.addMarker(playerInput, this._currentPlayer.marker)
-      this.switchTurns()
-    }
-  }
-
   switchTurns() {
-    this._currentPlayer == this._playerO ? this._playerX : this._playerO
+    this._currentPlayer =
+      this._currentPlayer === this._playerO ? this._playerX : this._playerO
   }
 
   gameOver() {
