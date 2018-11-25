@@ -75,7 +75,23 @@ const controller = (() => {
     column.appendChild(ttt)
     columnsContainer.appendChild(column)
     content.prepend(columnsContainer)
-    createResetGameButton()
+  }
+
+  const createFooter = () => {
+    const columnsContainer = createElement(
+      'div',
+      'section columns is-full is-mobile'
+    )
+    const column = createElement('div', 'columns column is-offset-5')
+    const ttt = createElement('p', 'title is-5 has-text-centered')
+    const anchor = createElement('a', 'is-link')
+    anchor.textContent = 'cdrainxv'
+    anchor.href = 'https://github.com/tttjs'
+    ttt.innerHTML = '&copy; 2018 by '
+    ttt.appendChild(anchor)
+    column.appendChild(ttt)
+    columnsContainer.appendChild(column)
+    content.appendChild(columnsContainer)
   }
 
   const createResetGameButton = () => {
@@ -87,7 +103,7 @@ const controller = (() => {
       'button',
       'column is-3 is-offset-6 button is-link has-text-centered is-large'
     )
-    btn.textContent = 'Play Again'
+    btn.textContent = 'Reset'
     btn.addEventListener('click', () => {
       removeChildren(gameBoard)
       game.board.reset()
@@ -127,8 +143,14 @@ const controller = (() => {
     return appendChildren(gameBoard, [...parentElArray])
   }
 
-  createTitle()
-  return { createBoard }
+  const init = () => {
+    createTitle()
+    createResetGameButton()
+    createFooter()
+    createBoard()
+  }
+
+  return { init }
 })()
 
 export default controller
