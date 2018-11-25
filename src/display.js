@@ -26,18 +26,6 @@ const controller = (() => {
     return parentEl
   }
 
-  const markBoard = (e, index) => {
-    if (!game.gameOver()) {
-      game.board.addMarker(index, game.currentPlayer.marker)
-      e.target.textContent = game.currentPlayer.marker
-      if (game.board.winCombo(game.currentPlayer.marker)) {
-        console.log(`${game.currentPlayer.name} won!`)
-      } else {
-        game.switchTurns()
-      }
-    } else console.log('game over')
-  }
-
   const groupColumnElements = columnEls => {
     const threeInARow = chunk(columnEls, 3)
     const parentElArray = []
@@ -52,18 +40,41 @@ const controller = (() => {
     return parentElArray
   }
 
+  const markBoard = (e, index) => {
+    if (!game.gameOver()) {
+      game.board.addMarker(index, game.currentPlayer.marker)
+      e.target.textContent = game.currentPlayer.marker
+      if (game.gameOver()) {
+        createGameOverMessage()
+      } else {
+        game.switchTurns()
+      }
+    } else console.log('game over')
+  }
+
+  const createGameOverMessage = () => {
+    const messageContainer = createElement('div', 'container')
+    const messageEl = createElement('p', 'has-text-centered title is-1')
+    if (game.victory())
+      messageEl.textContent = `${game.currentPlayer.name} won!`
+    else messageEl.textContent = `It's a stalemate!`
+    messageContainer.appendChild(messageEl)
+    return appendChildren(content, [messageContainer])
+  }
+
   const createBoard = () => {
     const boardCells = []
     game.board.state.forEach((_cell, index) => {
       const boardCell = createElement(
         'div',
-        'has-background-link column is-half has-text-centered is-size-1'
+        'has-background-link column is-half title is-1 has-text-centered has-text-light'
       )
       boardCell.style.width = '100px'
       boardCell.style.height = '100px'
-      boardCell.style.marginRight = '25px'
+      boardCell.style.marginRight = '45px'
       boardCell.style.borderRadius = '50%'
       boardCell.style.lineHeight = '65px'
+      boardCell.style.cursor = 'pointer'
       boardCell.addEventListener('click', e => {
         markBoard(e, index)
       })
