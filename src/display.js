@@ -15,7 +15,7 @@ const controller = (() => {
   const game = new Game()
 
   const createElement = (el, classes) => {
-    const element = document.createElement('div')
+    const element = document.createElement(el)
     element.classList = classes
     return element
   }
@@ -63,11 +63,29 @@ const controller = (() => {
     return appendChildren(gameBoard, [messageContainer])
   }
 
+  const createTitle = () => {
+    const columnsContainer = createElement(
+      'div',
+      'section columns is-full is-mobile'
+    )
+    const column = createElement('div', 'columns column is-offset-4')
+    const ttt = createElement('h1', 'title is-1 has-text-centered')
+    ttt.textContent = 'TTT'
+    ttt.style.letterSpacing = '150px'
+    column.appendChild(ttt)
+    columnsContainer.appendChild(column)
+    content.prepend(columnsContainer)
+    createResetGameButton()
+  }
+
   const createResetGameButton = () => {
-    const btnContainer = createElement('div', 'columns container has-text-centered')
+    const btnContainer = createElement(
+      'div',
+      'columns container has-text-centered'
+    )
     const btn = createElement(
       'button',
-      'column is-3 is-offset-6 button is-link has-text-centered is-large' 
+      'column is-3 is-offset-6 button is-link has-text-centered is-large'
     )
     btn.textContent = 'Play Again'
     btn.addEventListener('click', () => {
@@ -88,7 +106,6 @@ const controller = (() => {
 
   const createBoard = () => {
     const boardCells = []
-    createResetGameButton()
     game.board.state.forEach((_cell, index) => {
       const boardCell = createElement(
         'div',
@@ -110,6 +127,7 @@ const controller = (() => {
     return appendChildren(gameBoard, [...parentElArray])
   }
 
+  createTitle()
   return { createBoard }
 })()
 
