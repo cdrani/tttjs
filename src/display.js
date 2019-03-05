@@ -68,7 +68,7 @@ const controller = (() => {
     column.style.margin = '0 auto'
     const ttt = createElement('p', 'title is-3 has-text-centered')
     const anchor = createElement('a', 'is-link')
-    anchor.textContent = 'cdrainxv'
+    anchor.textContent = 'cdrani'
     anchor.href = 'https://github.com/tttjs'
     ttt.innerHTML = '&copy; 2019 by '
     ttt.appendChild(anchor)
@@ -101,15 +101,15 @@ const controller = (() => {
     game.board.state.forEach((_cell, index) => {
       const boardCell = createElement(
         'div',
-        'has-background-link column is-half title is-1 has-text-centered has-text-light'
+        'has-background-link title has-text-light'
       )
       boardCell.style.width = '100px'
       boardCell.style.height = '100px'
       boardCell.style.marginRight = '10px'
       boardCell.style.borderRadius = '50%'
-      boardCell.style.lineHeight = '60px'
+      boardCell.style.lineHeight = '70px'
       boardCell.style.cursor = 'pointer'
-      boardCell.style.fontSize = '5rem'
+      boardCell.style.fontSize = '8rem'
       boardCell.addEventListener('click', e => {
         markBoard(e, index)
       })
