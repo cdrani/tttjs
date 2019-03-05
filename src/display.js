@@ -4,19 +4,11 @@ import Game from './game'
 const controller = (() => {
   const content = document.getElementById('content')
   const gameBoard = document.getElementById('game-board')
-  gameBoard.classList.add(
-    'section',
-    'columns',
-    'is-multiline',
-    'is-full',
-    'is-mobile',
-    'has-text-centered'
-  )
   const game = new Game()
 
   const createElement = (el, classes) => {
     const element = document.createElement(el)
-    element.classList = classes
+    if (classes) element.classList = classes
     return element
   }
 
@@ -31,10 +23,8 @@ const controller = (() => {
     const threeInARow = chunk(columnEls, 3)
     const parentElArray = []
     threeInARow.forEach(row => {
-      const parentColumn = createElement(
-        'div',
-        'columns column is-full is-offset-4 is-0 is-mobile my-1'
-      )
+      const parentColumn = createElement('div', 'columns')
+      parentColumn.style.justifyContent = 'center'
       const parentElGroup = appendChildren(parentColumn, [...row])
       parentElArray.push(parentElGroup)
     })
@@ -54,8 +44,10 @@ const controller = (() => {
   }
 
   const createGameOverMessage = () => {
-    const messageContainer = createElement('div', 'container')
+    const messageContainer = createElement('div', 'column')
+    messageContainer.style.justifyContent = 'center'
     const messageEl = createElement('p', 'has-text-centered title is-1')
+
     if (game.victory())
       messageEl.textContent = `${game.currentPlayer.name} won!`
     else messageEl.textContent = `It's a stalemate!`
@@ -64,30 +56,21 @@ const controller = (() => {
   }
 
   const createTitle = () => {
-    const columnsContainer = createElement(
-      'div',
-      'section columns is-full is-mobile'
-    )
-    const column = createElement('div', 'columns column is-offset-4')
     const ttt = createElement('h1', 'title is-1 has-text-centered')
     ttt.textContent = 'TTT'
-    ttt.style.letterSpacing = '150px'
-    column.appendChild(ttt)
-    columnsContainer.appendChild(column)
-    content.prepend(columnsContainer)
+    ttt.style.margin = '50px 0'
+    content.prepend(ttt)
   }
 
   const createFooter = () => {
-    const columnsContainer = createElement(
-      'div',
-      'section columns is-full is-mobile'
-    )
-    const column = createElement('div', 'columns column is-offset-5')
-    const ttt = createElement('p', 'title is-5 has-text-centered')
+    const columnsContainer = createElement('div', 'columns')
+    const column = createElement('div')
+    column.style.margin = '0 auto'
+    const ttt = createElement('p', 'title is-3 has-text-centered')
     const anchor = createElement('a', 'is-link')
     anchor.textContent = 'cdrainxv'
     anchor.href = 'https://github.com/tttjs'
-    ttt.innerHTML = '&copy; 2018 by '
+    ttt.innerHTML = '&copy; 2019 by '
     ttt.appendChild(anchor)
     column.appendChild(ttt)
     columnsContainer.appendChild(column)
@@ -95,14 +78,8 @@ const controller = (() => {
   }
 
   const createResetGameButton = () => {
-    const btnContainer = createElement(
-      'div',
-      'columns container has-text-centered'
-    )
-    const btn = createElement(
-      'button',
-      'column is-3 is-offset-6 button is-link has-text-centered is-large'
-    )
+    const btn = createElement('button', 'button is-link is-large')
+    btn.style.margin = '50px auto'
     btn.textContent = 'Reset'
     btn.addEventListener('click', () => {
       removeChildren(gameBoard)
@@ -110,8 +87,7 @@ const controller = (() => {
       createBoard()
     })
 
-    btnContainer.appendChild(btn)
-    content.appendChild(btnContainer)
+    content.appendChild(btn)
   }
 
   const removeChildren = parentEl => {
@@ -129,10 +105,11 @@ const controller = (() => {
       )
       boardCell.style.width = '100px'
       boardCell.style.height = '100px'
-      boardCell.style.marginRight = '45px'
+      boardCell.style.marginRight = '10px'
       boardCell.style.borderRadius = '50%'
-      boardCell.style.lineHeight = '65px'
+      boardCell.style.lineHeight = '60px'
       boardCell.style.cursor = 'pointer'
+      boardCell.style.fontSize = '5rem'
       boardCell.addEventListener('click', e => {
         markBoard(e, index)
       })

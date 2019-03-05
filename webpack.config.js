@@ -5,10 +5,10 @@ module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist/assets')
+    path: path.resolve(__dirname, 'dist')
   },
   devServer: {
-    contentBase: path.resolve(__dirname, 'dist'),
+    contentBase: [path.resolve(__dirname, 'dist')],
     hot: true
   },
   plugins: [new webpack.HotModuleReplacementPlugin()]
