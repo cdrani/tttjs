@@ -4,7 +4,8 @@
   "description": "tic tac toe",
   "scripts": {
     "dev": "webpack-dev-server -d",
-    "build": "webpack -p"
+    "build": "webpack -p",
+    "gh-page": "git push && git subtree push --prefix dist origin gh-pages"
   },
   "devDependencies": {
     "webpack": "4.29.6",
